@@ -57,7 +57,7 @@ $(GRAPH_DIR):
 	
 clean:
 	$(RM) -r $(GRAPH_DIR)
-	$(RM)  results/compare*.png
+	$(RM) results/compare*.png
 	$(RM) $(TBL1_DB)
 	$(RM) $(FIG5_DB)
 	$(RM) $(FIG6_DB)

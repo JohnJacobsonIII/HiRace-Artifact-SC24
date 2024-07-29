@@ -26,7 +26,7 @@ MEMCHECK       = VERSION + 'compute-sanitizer'
 
 ROOT_DIR       = ''
 INPUT_PATH     = 'indigo/input'
-IGUARD_PATH    = 'iGUARD/nvbit_release/tools/detector/detector.so'
+IGUARD_PATH    = 'iGUARD-SOSP21/nvbit_release/tools/detector/detector.so'
 HIRACE_SOURCE  = 'src/hirace/'
 INDIGO_INCLUDE = 'indigo/indigo_include'
 INDIGO_TESTS   = 'indigo/indigo_sources/'
