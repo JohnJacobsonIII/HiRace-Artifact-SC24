@@ -37,19 +37,19 @@ $(G1): | $(GRAPH_DIR)
 	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G1)) -P $(GRAPH_DIR)
 
 $(G2): | $(GRAPH_DIR)
-	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G1)) -P $(GRAPH_DIR)
+	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G2)) -P $(GRAPH_DIR)
 
 $(G3): | $(GRAPH_DIR)
-	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G1)) -P $(GRAPH_DIR)
+	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G3)) -P $(GRAPH_DIR)
 
 $(G4): | $(GRAPH_DIR)
-	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G1)) -P $(GRAPH_DIR)
+	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G4)) -P $(GRAPH_DIR)
 
 $(G5): | $(GRAPH_DIR)
-	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G1)) -P $(GRAPH_DIR)
+	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G5)) -P $(GRAPH_DIR)
 
 $(G6): | $(GRAPH_DIR)
-	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G1)) -P $(GRAPH_DIR)
+	wget --no-check-certificate $(GRAPH_PATH)$(notdir $(G6)) -P $(GRAPH_DIR)
 
 
 $(GRAPH_DIR):

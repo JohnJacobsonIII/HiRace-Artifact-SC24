@@ -36,7 +36,7 @@ def main():
         f, ax = plt.subplots(figsize=(7, 6))
         # ax.set_xscale("log")
         
-        print(df)
+        #print(df)
         # Plot the orbital period with horizontal boxes
         sns.boxplot(x="speedup_iguard", y="graph", data=df,
                             whis=[0, 100], width=.6, palette="vlag")
@@ -51,7 +51,7 @@ def main():
         ax.set(ylabel="")
         sns.despine(trim=True, left=True)
         
-        plt.savefig('compare_to_figure5.png', bbox_inches='tight')
+        plt.savefig('results/compare_to_figure5.png', bbox_inches='tight')
     
     except Exception as e:
         print(e)

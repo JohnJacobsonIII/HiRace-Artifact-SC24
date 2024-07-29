@@ -43,4 +43,4 @@ for tick in plt.gca().get_yticklabels():
 
 plt.yscale('log')
 
-plt.savefig('compare_to_figure6.png')#, bbox_inches='tight')
+plt.savefig('results/compare_to_figure6.png')#, bbox_inches='tight')
