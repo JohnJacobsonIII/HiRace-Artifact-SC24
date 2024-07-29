@@ -1,6 +1,8 @@
 # Artifact for SC24
 
 ---
+To build iGUARD: from the `iGUARD-SOSP21` directory, run `make setup`.
+
 
 The following make commands will generate each figure for comparison. Within the `results/paper_figures` directory are copies of the baseline figures for comparison.
 
