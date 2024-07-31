@@ -39,7 +39,7 @@ Sponsor: This benchmark suite is based upon work supported by the U.S. National 
 typedef int data_t;
 #include "indigo_cuda.h"
 
-__global__ void test_kernel(int* nindex, int* nlist, data_t* data1, data_t* data2, int numv, hr_shadowt* __hr_metadata_data1, hr_shadowt* __hr_metadata_data2)
+__global__ void test_kernel(int* nindex, int* nlist, data_t* __hr_data1, data_t* __hr_data2, int numv, hr_shadowt* __hr_metadata_data1, hr_shadowt* __hr_metadata_data2)
 {
   /************************/
   /***** HIRACE START *****/
