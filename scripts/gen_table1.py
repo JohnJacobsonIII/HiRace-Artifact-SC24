@@ -14,13 +14,13 @@ def main():
             i.graph as "Input Graph",
             COUNT(DISTINCT i.code) AS "Total Tests",
             SUM(CASE WHEN hirace.errors > 0 THEN 1 ELSE 0 END) AS "Hirace Races Found",
-            SUM(CASE WHEN hirace.errors == 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "Hirace Races Missed",
+            SUM(CASE WHEN hirace.errors = 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "Hirace Races Missed",
             SUM(CASE WHEN g.errors > 0 THEN 1 ELSE 0 END) AS "iGUARD Races Found",
-            SUM(CASE WHEN g.errors == 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "iGUARD Races Missed",
+            SUM(CASE WHEN g.errors = 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "iGUARD Races Missed",
             SUM(CASE WHEN m.errors > 0 THEN 1 ELSE 0 END) AS "Compute Sanitizer Races Found",
-            SUM(CASE WHEN m.errors == 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "Compute Sanitizer Races Missed",
+            SUM(CASE WHEN m.errors = 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "Compute Sanitizer Races Missed",
             SUM(CASE WHEN i.errors > 0 THEN 1 ELSE 0 END) AS "Sequential Comparison Races Found",
-            SUM(CASE WHEN i.errors == 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "Sequential Comparison Races Missed"
+            SUM(CASE WHEN i.errors = 0 AND i.code LIKE "%Bug%" AND i.code NOT LIKE "%boundsBug%" THEN 1 ELSE 0 END) AS "Sequential Comparison Races Missed"
         FROM indigo i
             INNER JOIN iguard g
                 ON g.code = i.code

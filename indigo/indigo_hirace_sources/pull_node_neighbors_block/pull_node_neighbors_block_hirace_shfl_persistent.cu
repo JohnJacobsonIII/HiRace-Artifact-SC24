@@ -1,6 +1,8 @@
-/* This file is part of the Indigo benchmark suite version 1.1.
+/* This file is part of the Indigo benchmark suite version 1.3.
 
-Copyright 2022, Texas State University
+BSD 3-Clause License
+
+Copyright (c) 2022-2024, Yiqian Liu, Noushin Azami, Corbin Walters, Avery Vanausdal, and Martin Burtscher.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -26,10 +28,12 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
-Contributors: Yiqian Liu, Noushin Azami, Corbin Walters, and Martin Burtscher
+URL: The latest version of the Indigo benchmark suite is available at https://cs.txstate.edu/~burtscher/research/IndigoSuite/ and at https://github.com/burtscher/IndigoSuite/.
 
-URL: The latest version of the Indigo benchmark suite is available at
-https://cs.txstate.edu/~burtscher/research/IndigoSuite/.
+Publication: This work is described in detail in the following paper.
+Yiqian Liu, Noushin Azami, Corbin Walters, and Martin Burtscher. The Indigo Program-Verification Microbenchmark Suite of Irregular Parallel Code Patterns. Proceedings of the 2022 IEEE International Symposium on Performance Analysis of Systems and Software, pp. 24-34. May 2022.
+
+Sponsor: This benchmark suite is based upon work supported by the U.S. National Science Foundation under Grant No. 1955367 as well as by equipment donations from NVIDIA Corporation.
  */
 
 typedef int data_t;
@@ -101,7 +105,7 @@ int warp = threadIdx.x / 32;
 if (warp == 0) s_carry[lane] = 0;
 
 for (int i = blockIdx.x; i < numv; i += gridDim.x) {
-__syncthreads();
+__syncthreads(); __hr_bcount++;
 int beg = nindex[i];
 int end = nindex[i + 1];
 data_t val = 0;
@@ -110,15 +114,15 @@ for (int j = beg + threadIdx.x; j < end; j += blockDim.x) {
   val += data2[nei];
 }
 for (int d = 1; d < 32; d *= 2) {
-  val += __shfl_up_sync(~0, val, d);
+  val += __shfl_up_sync(~0, val, d); __hr_wcount++;
 }
 if (lane == 31) s_carry[warp] = val;
-__syncthreads();
+__syncthreads(); __hr_bcount++;
 
 if (warp == 0) {
   val = s_carry[lane];
   for (int d = 1; d < 32; d *= 2) {
-    val += __shfl_up_sync(~0, val, d);
+    val += __shfl_up_sync(~0, val, d); __hr_wcount++;
   }
   if (lane == 31) data1[i] += val;
 }
