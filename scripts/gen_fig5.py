@@ -23,7 +23,10 @@ def main():
                     ON REPLACE(hirace.code, "_hirace", "") = g.code
                         AND hirace.graph = g.graph
                         AND hirace.threads_per_block = g.threads_per_block
-                        AND hirace.number_of_blocks = g.number_of_blocks;
+                        AND hirace.number_of_blocks = g.number_of_blocks
+            WHERE
+                hirace.time_ns > 0
+                AND g.time_ns > 0;
         '''
         
         print("running speedup query...")

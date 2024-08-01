@@ -11,6 +11,7 @@ def db_setup(dbfile):
     @return a pair of database connection and sqlite3 cursor object for 
             interacting with the database
     '''
+    print(dbfile)
     connection = sqlite3.connect(dbfile);
     sqlcursor = connection.cursor()
     return connection, sqlcursor
@@ -64,7 +65,7 @@ def table_insert(sqlcursor, table_name, data):
     for v in vals:
         if isinstance(v,str):
             sql_cmd += "'" + v + "',"
-        if isinstance(v,int):
+        if isinstance(v,(int, float, complex)):
             sql_cmd += str(v) + ","
     
     # remove extra comma

@@ -175,10 +175,13 @@ def run_indigo(code_file, graph_file,
     logfile = os.path.join(TEMP_DIR, "indigo.log")
     cmd = './%s %s %s %s' % (os.path.join(TEMP_DIR,'microbenchmark'), graph_file, threads_per_block, number_of_blocks)
     cmd += ' > %s' % logfile
-    start = perf_counter_ns()
-    subp.run(cmd, shell=True)
-    end = perf_counter_ns()
-    time = end - start
+    try:
+        start = perf_counter_ns()
+        subp.run(cmd, shell=True, timeout=300)
+        end = perf_counter_ns()
+        time = end - start
+    except subp.TimeoutExpired as err:
+        time = -1
     
     # extract from indigo stdout
     extract_data(parse_log_indigo, logfile, sqlcursor, INDIGO_TABLE,
@@ -213,10 +216,13 @@ def run_memcheck(code_file, graph_file,
         # change from cuda-memcheck to compute-sanitizer - getting errors though
         cmd = '%s --log-file %s --tool %s ./%s' % (MEMCHECK, logfile, tool, os.path.join(TEMP_DIR,'microbenchmark'))
         cmd += ' %s %s %s > /dev/null' % (graph_file, threads_per_block, number_of_blocks)
-        start = perf_counter_ns()
-        subp.run(cmd, shell=True)
-        end = perf_counter_ns()
-        time = end - start
+        try:
+            start = perf_counter_ns()
+            subp.run(cmd, shell=True, timeout=300)
+            end = perf_counter_ns()
+            time = end - start
+        except subp.TimeoutExpired as err:
+            time = -1
         
         # extract from cuda's memcheck logs
         parser = parse_log_memcheck_racecheck if tool == 'racecheck' else parse_log_memcheck
@@ -254,10 +260,13 @@ def run_iguard(code_file, graph_file,
     # TODO: extract this to generic process
     # cmd += ' | tee %s' % indigo_logfile
     cmd += ' > %s' % logfile
-    start = perf_counter_ns()
-    subp.run(cmd, shell=True)
-    end = perf_counter_ns()
-    time = end - start
+    try:
+        start = perf_counter_ns()
+        subp.run(cmd, shell=True, timeout=300)
+        end = perf_counter_ns()
+        time = end - start
+    except subp.TimeoutExpired as err:
+        time = -1
     
     # extract from cuda's memcheck logs
     extract_data(parse_log_iguard, logfile, sqlcursor, table_name,
@@ -289,11 +298,13 @@ def run_hirace(code_file, graph_file,
     run_args = ' %s %s %s > ' % (graph_file, threads_per_block, number_of_blocks)
     cmd = './%s' % binfile
     cmd += run_args + logfile
-    if os.path.isfile(binfile):
+    try:
         start = perf_counter_ns()
-        subp.run(cmd, shell=True)
+        subp.run(cmd, shell=True, timeout=300)
         end = perf_counter_ns()
         time = end - start
+    except subp.TimeoutExpired as err:
+        time = -1
     # parse log
     if os.path.isfile(logfile):
         extract_data(parse_log_hirace, logfile, sqlcursor, table_name,
