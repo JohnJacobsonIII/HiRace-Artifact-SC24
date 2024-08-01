@@ -1,2 +1,0 @@
-./gaussian -f /uufs/chpc.utah.edu/common/home/u1201441/repos/gpu-rodinia/data/rodinia_3.1/data/gaussian/matrix4.txt
-./gaussian -s 16
